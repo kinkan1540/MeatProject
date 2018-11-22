@@ -1,0 +1,16 @@
+# "#" �Ŏn�܂�s�̓R�����g
+
+# bin �t�H���_�͗v��Ȃ�
+[Bb]in/
+[Oo]bj/
+Debug/
+Release/
+
+# User-specific files
+
+*.suo
+
+*.user
+
+*.sln.docstates
+Oikake/.vs/Oikake/v15/Server/sqlite3/db.lock
