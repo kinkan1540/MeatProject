@@ -41,7 +41,7 @@ namespace Oikake
 
             graphicsDevice.IsFullScreen = true;
 
-            Window.Title = "アクション";
+            Window.Title = "MeatProject";
         }
 
         /// <summary>

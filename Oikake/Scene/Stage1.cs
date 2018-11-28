@@ -91,7 +91,7 @@ namespace Oikake.Scene
             if (player.IsGoal() == true)
             {
                 IsEndFlag = true;
-                nextScene = Scene.CheckScene;
+                nextScene = Scene.Ending;
             }
 
             if (characterManager.IsPlayerDead())

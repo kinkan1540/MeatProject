@@ -10,10 +10,14 @@ namespace Oikake.Device
     static class Input
     {
         private static Vector2 velocity = Vector2.Zero;
+        //キーボード
         private static KeyboardState currentKey;
         private static KeyboardState previousKey;
+        //マウス
         private static MouseState currentMouse;
         private static MouseState previousMouse;
+       
+        private static Vector2 padVelocity = Vector2.Zero;//パッド移動量
 
         public static void Update()
         {
