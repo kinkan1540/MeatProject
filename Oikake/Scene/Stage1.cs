@@ -27,6 +27,7 @@ namespace Oikake.Scene
         private Vector2 CenterCamera;
         private MoveBlock moveBlock;
         private Text text;
+        private Robot robot;
 
         private Dictionary<int, string> stageNum_to_CSV = new Dictionary<int, string>()
         {
@@ -63,9 +64,11 @@ namespace Oikake.Scene
             Device. Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
             player = new Player(this, map1);
+            robot = new Robot(this, map1);
             characterManager = new CharacterManager();
             characterManager.Initialize();
             characterManager.Add(player);
+            characterManager.Add(robot);
             characterManager.Add(moveBlock); 
 
             bullets = new List<Bullet>();

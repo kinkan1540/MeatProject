@@ -18,6 +18,12 @@ namespace Oikake.Actor
         protected bool isDeadFlag;
         protected IGameMediator mediator;
 
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         public abstract void Hit(Character s);
         protected enum State
         {
@@ -92,5 +98,6 @@ namespace Oikake.Actor
 
             return rect;
         }
+        
     }
 }

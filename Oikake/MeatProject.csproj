@@ -80,6 +80,7 @@
     <Compile Include="Actor\Effects\ParticleManeger.cs" />
     <Compile Include="Actor\Effects\ParticleMiddle.cs" />
     <Compile Include="Actor\Effects\ParticleSmall.cs" />
+    <Compile Include="Actor\Robot.cs" />
     <Compile Include="Def\EnemyBullet.cs" />
     <Compile Include="Actor\PlayerBullet.cs" />
     <Compile Include="Actor\RandomAI.cs" />

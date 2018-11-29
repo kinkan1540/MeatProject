@@ -53,7 +53,7 @@ namespace Oikake.Scene
 
         public void Update(GameTime gameTime)
         {
-            if(Input.GetKeyTrigger(Keys.Space))
+            if(Input.GetKeyTrigger(Keys.Space)||Input.IskeyPadDown(PlayerIndex.One,Buttons.A))
             {
                 sound.PlaySE("endingse");
                 isEndFlag = true;

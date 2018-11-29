@@ -92,7 +92,7 @@ namespace Oikake
             renderer.LoadContent("CheckScen");
             renderer.LoadContent("Description1");
             renderer.LoadContent("Description2");
-
+            renderer.LoadContent("Robot");
             //1ピクセル黒画像の生成
             Texture2D fade = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = new Color[1 * 1];

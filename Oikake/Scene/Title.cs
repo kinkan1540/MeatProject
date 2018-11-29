@@ -63,7 +63,7 @@ namespace Oikake.Scene
         {
             motion.Update(gameTime);
             sound.PlayBGM("Gameplay");
-            if(Input.GetKeyTrigger(Keys.Space))
+            if(Input.GetKeyTrigger(Keys.Space)||Input.GetKeyTrigger(PlayerIndex.One,Buttons.A))
             {
                 sound.PlaySE("titlese");
                 isEndFrag = true;

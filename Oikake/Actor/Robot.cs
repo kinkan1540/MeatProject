@@ -1,24 +1,23 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Oikake.Device;
 using Oikake.Def;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
 using Oikake.Scene;
 using Oikake.Util;
 using Oikake.Objects;
 
-
 namespace Oikake.Actor
 {
-
-    class Player : Character
+    class Robot : Character
     {
         Vector2 velocity = Vector2.Zero;
         private Sound sound;
+        private int hp;
         private Motion motion;
         private bool isJump;
         private float gravity = 0.5f;
@@ -27,8 +26,8 @@ namespace Oikake.Actor
         private int moveCount;
         private List<Vector2> movePos;
         private Timer timer;
+        private bool isGetOn;
 
-     
 
         //各ブロック調査用
         private List<Vector2> rightPos;
@@ -36,21 +35,21 @@ namespace Oikake.Actor
         private List<Vector2> upPos;
         private List<Vector2> downPos;
 
-       
+
 
         /// <summary>
         /// 向き
         /// </summary>
         private enum Direction
         {
-            RIHT , DOWN, UP, LEFT
+            RIHT, DOWN, UP, LEFT
         };
         private Direction direction;//現在の向き
         //向きと範囲を管理
         private Dictionary<Direction, Range> directionRange;
 
 
-   
+
 
         /// <summary>
         /// モーションの変更
@@ -58,14 +57,14 @@ namespace Oikake.Actor
         /// <param name="direction">変更したい向き</param>
         private void ChangeMotion(Direction direction)
         {
-           this.direction = direction;
-           motion.Initialize(directionRange[direction],new CountDownTimer(0.2f));
+            this.direction = direction;
+            motion.Initialize(directionRange[direction], new CountDownTimer(0.2f));
         }
 
         private void UpdateMotion()
         {
             //キー入力の状態を取得
-            //Vector2 velocity = Input.Velocity();
+            Vector2 velocity = Input.Velocity();
             //キー入力がなければ何もしない
             if (velocity.Length() <= 0.0f)
             {
@@ -84,8 +83,8 @@ namespace Oikake.Actor
             }
         }
 
-        public Player(IGameMediator mediator, Map1 map1)
-            : base("Player",mediator)
+        public Robot(IGameMediator mediator, Map1 map1)
+            : base("Robot", mediator)
         {
             Device.Camera.GetScreenPos(position);
             this.map = map1;
@@ -110,11 +109,13 @@ namespace Oikake.Actor
 
         public override void Initialize()
         {
+            hp = 4;
             timer = new CountDownTimer(0.3f);
             IsGoal();
             IsTrap();
-            direction =new  Direction();
+            direction = new Direction();
             isJump = false;
+            isGetOn = false;
             isDeadFlag = false;
             velocity = Vector2.Zero;
             position = new Vector2(32, 736);
@@ -132,18 +133,34 @@ namespace Oikake.Actor
             IsTrap();
 
             Ride();
-            
-            
 
-            if (position.Y>=Screen.Height)
+         
+            if (position.Y >= Screen.Height)
             {
                 isDeadFlag = true;
             }
         }
         public override void Hit(Character other)
         {
-            
-           if (other is MoveBlock)
+            if(other is PlayerBullet)
+            {
+                hp -= 1;
+                if (hp == 0)
+                {
+                    if(other is Player)
+                    {
+                        Player player = (Player)other;
+                        {
+                            if(player.Position.X<position.X)
+                            {
+                                isGetOn = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (other is MoveBlock)
             {
                 if (IsUp(other))
                 {
@@ -152,8 +169,8 @@ namespace Oikake.Actor
             }
         }
 
-       
-       
+
+
         public override void Shutdown()
         {
 
@@ -183,7 +200,7 @@ namespace Oikake.Actor
             }
         }
 
-        
+
         private void MotionInit()
         {
             //下向き
@@ -233,26 +250,30 @@ namespace Oikake.Actor
             {
                 movePos = leftPos;
             }
-
-            //1マスずつ移動する
-            for (int i = 0; i < Math.Abs(velocity.X); i++)
+            if (isGetOn == true)
             {
-                foreach (Vector2 pos in movePos)
+
+
+                //1マスずつ移動する
+                for (int i = 0; i < Math.Abs(velocity.X); i++)
                 {
-                    if (mediator.IsBlock(position + pos))
+                    foreach (Vector2 pos in movePos)
                     {
-                        if (Input.GetKeyTrigger(Keys.Space)||Input.GetKeyTrigger(PlayerIndex.One,Buttons.B))
+                        if (mediator.IsBlock(position + pos))
                         {
-                            if (isJump == false)
+                            if (Input.GetKeyTrigger(Keys.Space))
                             {
-                                isJump = true;
-                                velocity.Y -= 10;
+                                if (isJump == false)
+                                {
+                                    isJump = true;
+                                    velocity.Y -= 10;
+                                }
                             }
+                            return;
                         }
-                        return;
                     }
+                    position.X += Input.Velocity().X;
                 }
-                position.X += Input.Velocity().X;
             }
         }
         public void YMove()
@@ -268,43 +289,48 @@ namespace Oikake.Actor
             {
                 movePos = upPos;
             }
-            //1マスずつ移動する
-            for (int i = 0; i < Math.Abs(velocity.Y); i++)
+            if (isGetOn)
             {
-                foreach (Vector2 pos in movePos)
+
+
+                //1マスずつ移動する
+                for (int i = 0; i < Math.Abs(velocity.Y); i++)
                 {
-                    if (mediator.IsBlock(position + pos))
+                    foreach (Vector2 pos in movePos)
                     {
-                        // 下向きでぶつかったとき
-                        if (velocity.Y > 0)
+                        if (mediator.IsBlock(position + pos))
                         {
-                            isJump = false;
-                            velocity.Y = 0;
+                            // 下向きでぶつかったとき
+                            if (velocity.Y > 0)
+                            {
+                                isJump = false;
+                                velocity.Y = 0;
+                            }
+                            // 上向きにぶつかったとき
+                            else
+                            {
+                                isJump = true;
+                                velocity.Y = 0;
+
+                            }
+                            return;
                         }
-                        // 上向きにぶつかったとき
                         else
                         {
                             isJump = true;
-                             velocity.Y =0;
-
                         }
-                        return;
-                    }
-                    else
-                    {
-                        isJump = true;
+
                     }
 
+
+                    position.Y += Math.Sign(velocity.Y);
                 }
-
-
-                position.Y += Math.Sign(velocity.Y);
             }
         }
-      
+
         private void JumpUpdate()
         {
-            if (Input.GetKeyTrigger(Keys.Space)||Input.GetKeyTrigger(PlayerIndex.One,Buttons.B))
+            if (Input.GetKeyTrigger(Keys.Space))
             {
                 if (isJump == false)
                 {
@@ -341,7 +367,7 @@ namespace Oikake.Actor
             {
                 // 下にブロックがあるかどうか
                 foreach (Vector2 pos in downPos)
-                {  
+                {
                     if (mediator.IsBlock(position + pos))
                     {
                         return;
@@ -382,5 +408,6 @@ namespace Oikake.Actor
                 }
             }
         }
-     }              
+    }
 }
+

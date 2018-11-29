@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Oikake.Device;
 using Oikake.Actor;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Oikake.Scene;
 using Oikake.Def;
@@ -105,10 +104,7 @@ namespace Oikake.Actor
             //状態変更
             state = State.Dying;
 
-            //得点の追加
-            int score = 0;
-         
-
+     
             isDeadFlag = true;
      
             //次のAIを決定
