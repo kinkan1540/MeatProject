@@ -59,8 +59,13 @@ namespace Oikake.Device
                 currentGamePads[playerIndex[i]] = GamePad.GetState(playerIndex[i]);
             }
             //更新
-            UpdateVelocity();
-            UpdatePadVelocity();
+            
+            
+             PadVelocity(PlayerIndex.One);
+            KebordVelocity();
+
+            velocity += padVelocity;
+
         }
         #region キーボード関連
         public static Vector2 Velocity()
@@ -69,19 +74,29 @@ namespace Oikake.Device
         }
 
        
-        private static void UpdateVelocity()
+        private static void KebordVelocity()
         {
             velocity = Vector2.Zero;
             if (currentKey.IsKeyDown(Keys.Right))
-            { velocity.X += 1; }
+            {
+                velocity.X += 1;
+            }
+
             if (currentKey.IsKeyDown(Keys.Left))
             { velocity.X -= 1; }
+
             if (currentKey.IsKeyDown(Keys.Up))
             { velocity.Y -= 1; }
+
             if (currentKey.IsKeyDown(Keys.Down))
-            { velocity.Y += 1; }
+            {
+                velocity.Y += 1;
+            }
+
             if (velocity.Length() != 0)
-            { velocity.Normalize(); }
+            {
+                velocity.Normalize();
+            }
         }
         public static bool IsKeyDown(Keys key)
         { return currentKey.IsKeyDown(key) && !previousKey.IsKeyDown(key); }
@@ -149,22 +164,9 @@ namespace Oikake.Device
             return currentGamePads[index].IsButtonDown(button) && !previousGamePads[index].IsButtonDown(button);
         }
 
-        private static void UpdatePadVelocity()
-        {
-            velocity = Vector2.Zero;
-            if (GetkeyState(PlayerIndex.One,Buttons.LeftThumbstickRight))
-            {
-                velocity.X += 1;
-            }
-            if (GetkeyState(PlayerIndex.One,Buttons.LeftThumbstickLeft))
-            { velocity.X -= 1; }
-            if (GetkeyState(PlayerIndex.One,Buttons.LeftThumbstickUp))
-            { velocity.Y -= 1; }
-            if (GetkeyState(PlayerIndex.One,Buttons.LeftThumbstickDown))
-            { velocity.Y += 1; }
-            if (velocity.Length() != 0)
-            { velocity.Normalize(); }
-        }
+     
+           
+        
         /// <summary>
         /// キーが押された瞬間か
         /// </summary>
@@ -202,7 +204,7 @@ namespace Oikake.Device
         /// </summary>
         /// <param name="index"></param>
         /// <returns>キーが押されていたら</returns>
-        public static Vector2 Velocity(PlayerIndex index)
+        public static Vector2 PadVelocity(PlayerIndex index)
         {
             //つながっていなければ0を返す
             if(currentGamePads[index].IsConnected==false)
@@ -213,29 +215,32 @@ namespace Oikake.Device
             //毎ループ初期化
             padVelocity = Vector2.Zero;
 
-            //右
-            if(currentGamePads[index].IsButtonDown(Buttons.DPadRight))
-            {
-                padVelocity.X += 1.0f;
-            }
-            //左
-            if(currentGamePads[index].IsButtonDown(Buttons.DPadLeft))
-            {
-                padVelocity.X -= 1.0f;
-            }
-            //上
-            if(currentGamePads[index].IsButtonDown(Buttons.DPadUp))
-            {
-               // padVelocity.Y -= 1.0f;
-            }
-            //下
-            if(currentGamePads[index].IsButtonDown(Buttons.DPadDown))
-            {
-              //  padVelocity.Y += 1.0f;
-            }
+            padVelocity = currentGamePads[index].ThumbSticks.Left;
+    
+
+            ////右
+            //if (currentGamePads[index].IsButtonDown(Buttons.DPadRight))
+            //{
+            //    padVelocity.X += 1.0f;
+            //}
+            ////左
+            //if(currentGamePads[index].IsButtonDown(Buttons.DPadLeft))
+            //{
+            //    padVelocity.X -= 1.0f;
+            //}
+            ////上
+            //if(currentGamePads[index].IsButtonDown(Buttons.DPadUp))
+            //{
+            //   // padVelocity.Y -= 1.0f;
+            //}
+            ////下
+            //if(currentGamePads[index].IsButtonDown(Buttons.DPadDown))
+            //{
+            //  //  padVelocity.Y += 1.0f;
+            //}
 
             //正規化
-            if(padVelocity.Length()!=0)
+            if (padVelocity.Length() != 0)
             {
                 padVelocity.Normalize();
             }

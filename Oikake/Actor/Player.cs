@@ -132,8 +132,6 @@ namespace Oikake.Actor
             IsTrap();
 
             Ride();
-            
-            
 
             if (position.Y>=Screen.Height)
             {
