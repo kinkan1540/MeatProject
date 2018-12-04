@@ -27,8 +27,9 @@ namespace Oikake.Actor
         private int moveCount;
         private List<Vector2> movePos;
         private Timer timer;
-
-     
+        private int bulletNum;
+        private bool CanShot;
+        private int ShotCount;
 
         //各ブロック調査用
         private List<Vector2> rightPos;
@@ -110,6 +111,9 @@ namespace Oikake.Actor
 
         public override void Initialize()
         {
+            ShotCount = 0;
+            CanShot = false;
+            bulletNum = 5;
             timer = new CountDownTimer(0.3f);
             IsGoal();
             IsTrap();
@@ -123,6 +127,7 @@ namespace Oikake.Actor
         }
         public override void Update(GameTime gameTime)
         {
+            BulletUpdate();
             FallStart();
             JumpUpdate();
             MoveUpdate();
@@ -380,5 +385,39 @@ namespace Oikake.Actor
                 }
             }
         }
-     }              
+
+        private void BulletUpdate()
+        {
+            if (Input.GetKeyTrigger(Keys.Z))
+            {
+                if (CanShot && bulletNum > 0)
+                {
+                    Vector2 velocity = new Vector2(1, 0);
+                    if (direction == Direction.LEFT)
+                    {
+                        velocity = new Vector2(-1, 0);
+                    }
+                    if (bulletNum > 0)
+                    {
+                        mediator.AddActor(
+                      new PlayerBullet(
+                          position,
+                          mediator,
+                          velocity));
+                        bulletNum--;
+                    }
+
+
+
+
+
+
+                }
+            }
+            if (Input.GetKeyTrigger(Keys.E))
+            {
+                bulletNum = 5;
+            }
+        }
+    }              
 }
