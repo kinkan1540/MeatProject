@@ -216,29 +216,6 @@ namespace Oikake.Device
             padVelocity = Vector2.Zero;
 
             padVelocity = currentGamePads[index].ThumbSticks.Left;
-    
-
-            ////右
-            //if (currentGamePads[index].IsButtonDown(Buttons.DPadRight))
-            //{
-            //    padVelocity.X += 1.0f;
-            //}
-            ////左
-            //if(currentGamePads[index].IsButtonDown(Buttons.DPadLeft))
-            //{
-            //    padVelocity.X -= 1.0f;
-            //}
-            ////上
-            //if(currentGamePads[index].IsButtonDown(Buttons.DPadUp))
-            //{
-            //   // padVelocity.Y -= 1.0f;
-            //}
-            ////下
-            //if(currentGamePads[index].IsButtonDown(Buttons.DPadDown))
-            //{
-            //  //  padVelocity.Y += 1.0f;
-            //}
-
             //正規化
             if (padVelocity.Length() != 0)
             {
