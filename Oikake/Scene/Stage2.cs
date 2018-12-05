@@ -168,5 +168,10 @@ namespace Oikake.Scene
             }
             return false;
         }
+
+        public Player GetPlayer()
+        {
+            return player;
+        }
     }
 }

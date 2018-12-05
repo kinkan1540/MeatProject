@@ -28,9 +28,7 @@ namespace Oikake.Actor
         private List<Vector2> movePos;
         private Timer timer;
         private int bulletNum;
-        private bool CanShot;
-        private int ShotCount;
-
+    
         //各ブロック調査用
         private List<Vector2> rightPos;
         private List<Vector2> leftPos;
@@ -111,8 +109,7 @@ namespace Oikake.Actor
 
         public override void Initialize()
         {
-            ShotCount = 0;
-            CanShot = false;
+
             bulletNum = 5;
             timer = new CountDownTimer(0.3f);
             IsGoal();
@@ -307,7 +304,7 @@ namespace Oikake.Actor
       
         private void JumpUpdate()
         {
-            if (Input.GetKeyTrigger(Keys.Space)||Input.GetKeyTrigger(PlayerIndex.One,Buttons.B))
+            if (Input.GetKeyTrigger(Keys.Space)||Input.GetKeyTrigger(PlayerIndex.One,Buttons.A))
             {
                 if (isJump == false)
                 {
@@ -388,9 +385,9 @@ namespace Oikake.Actor
 
         private void BulletUpdate()
         {
-            if (Input.GetKeyTrigger(Keys.Z))
+            if (Input.GetKeyTrigger(Keys.Z)||Input.IskeyPadDown(PlayerIndex.One,Buttons.RightShoulder))                                                                                                                                                                                                                             
             {
-                if (CanShot && bulletNum > 0)
+                if (bulletNum > 0)
                 {
                     Vector2 velocity = new Vector2(1, 0);
                     if (direction == Direction.LEFT)
@@ -406,15 +403,9 @@ namespace Oikake.Actor
                           velocity));
                         bulletNum--;
                     }
-
-
-
-
-
-
                 }
             }
-            if (Input.GetKeyTrigger(Keys.E))
+            if (Input.GetKeyTrigger(Keys.E)||Input.IskeyPadDown(PlayerIndex.One,Buttons.X))
             {
                 bulletNum = 5;
             }

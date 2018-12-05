@@ -19,8 +19,6 @@ namespace Oikake.Objects
         private List<Vector2> movePos;
         private List<Vector2> rightPos;
         private List<Vector2> leftPos;
-        private int minRct;
-        private int maxRct;
         private int moveCount;
 
 
@@ -109,12 +107,13 @@ namespace Oikake.Objects
             {
                 Player player = (Player)other;
 
-                if (player.Position.Y > position.Y)
+                if (player.Position.Y > position.Y||player.RobotPosition.Y>position.Y)
                 {
                     return;
                 }
               
                 player.Position += velocity * speed;
+                player.RobotPosition += velocity * speed;
             }
         }
 

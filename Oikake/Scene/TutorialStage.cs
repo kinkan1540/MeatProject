@@ -27,8 +27,6 @@ namespace Oikake.Scene
         private Player player;
         private Vector2 cameraCenter;
         private MoveBlock moveBlock;
-        private Text text;
-
 
         public TutorialStage(IScene scene)
         {
@@ -187,6 +185,11 @@ namespace Oikake.Scene
                 return true;
             }
             return false;
+        }
+
+        public Player GetPlayer()
+        {
+            return player;
         }
     }
 }

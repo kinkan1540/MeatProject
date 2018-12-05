@@ -27,6 +27,8 @@ namespace Oikake.Scene
 
         MoveBlock IsMoveBlock(Vector2 position);
 
-         bool IsMapBlock(Vector2 position);
+        bool IsMapBlock(Vector2 position);
+
+        Player GetPlayer();
     }
 }

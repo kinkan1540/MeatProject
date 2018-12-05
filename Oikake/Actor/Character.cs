@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Oikake.Scene;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Oikake.Device;
 namespace Oikake.Actor
 {
@@ -17,13 +18,9 @@ namespace Oikake.Actor
         protected string name;
         protected bool isDeadFlag;
         protected IGameMediator mediator;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
+        public bool IsGetOn { get;set ;}
+        public Vector2 Position { get; set; }
+        public Vector2 RobotPosition { get; set; }
         public abstract void Hit(Character s);
         protected enum State
         {
@@ -98,6 +95,8 @@ namespace Oikake.Actor
 
             return rect;
         }
-        
     }
 }
+
+
+     

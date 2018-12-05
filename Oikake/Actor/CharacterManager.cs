@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Oikake.Device;
 using Oikake.Objects;
 namespace Oikake.Actor
@@ -100,7 +101,14 @@ namespace Oikake.Actor
                     newChara.Initialize();//初期化
                     players.Add(newChara);//登録
                 }
+                //プレイヤーの弾だったらプレイヤーリストに追加
                 else　if(newChara is PlayerBullet)
+                {
+                    newChara.Initialize();
+                    players.Add(newChara);
+                }
+                //動く床だったらプレイヤーに追加
+                else if(newChara is MoveBlock)
                 {
                     newChara.Initialize();
                     players.Add(newChara);
@@ -152,7 +160,7 @@ namespace Oikake.Actor
         public bool IsBlock(Vector2 position)
         {
             Point point = new Point((int)position.X, (int)position.Y);
-            foreach (var block in enemys)
+            foreach (var block in players)
             {
                 if (block is MoveBlock)
                 {
@@ -172,7 +180,7 @@ namespace Oikake.Actor
         public MoveBlock IsMoveBlock(Vector2 position)
         {
             Point point = new Point((int)position.X, (int)position.Y);
-            foreach (var block in enemys)
+            foreach (var block in players)
             {
                 if (block is MoveBlock)
                 {
@@ -185,8 +193,8 @@ namespace Oikake.Actor
                     }
                 }
             }
-
             return null;
         }
+        
     }
 }

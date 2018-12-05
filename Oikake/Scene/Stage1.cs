@@ -16,7 +16,6 @@ namespace Oikake.Scene
     {
         private CharacterManager characterManager;
         private List<Bullet> bullets;
-        private Score score;
         private Timer timer;
         private TimerUI timerUI;
         private bool IsEndFlag;
@@ -140,16 +139,6 @@ namespace Oikake.Scene
             characterManager.Add(character);
         }
 
-        public void AddScore()
-        {
-            score.Add();
-        }
-
-        public void AddScore(int num)
-        {
-            score.Add(num);
-        }
-
        public void CameraDraw()
         {
             float mapHeightSize = 32.0f * 25.0f;
@@ -193,6 +182,11 @@ namespace Oikake.Scene
                 return true;
             }
             return false;
+        }
+
+        public Player GetPlayer()
+        {
+            return player;
         }
     }
 }
