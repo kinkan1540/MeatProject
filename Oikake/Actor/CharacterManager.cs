@@ -81,6 +81,11 @@ namespace Oikake.Actor
         }
         public void Update(GameTime gameTime)
         {
+            var robot = GetRobot();
+            if (robot != null && robot.Isk)
+            {
+                GetPlayer().position = robot.position;
+            }
             foreach (var p in players)
             {
                 p.Update(gameTime);
@@ -135,6 +140,10 @@ namespace Oikake.Actor
             }
             foreach (var p in players)
             {
+                if (p is Player && GetRobot().Isk)
+                {
+                   continue;
+                }
                 p.Draw(renderer);
             }
          
@@ -195,6 +204,29 @@ namespace Oikake.Actor
             }
             return null;
         }
-        
+
+        private Robot GetRobot()
+        {
+            foreach (var e in enemys)
+            {
+                if (e is Robot)
+                {
+                    return (Robot)e;
+                }
+            }
+            return null;
+        }
+
+        private Player GetPlayer()
+        {
+            foreach (var p in players)
+            {
+                if (p is Player)
+                {
+                    return (Player)p;
+                }
+            }
+            return null;
+        }
     }
 }

@@ -220,7 +220,7 @@ namespace Oikake.Actor
             YMove();
         }
 
-        public void XMove()
+        private void XMove()
         {
             //方向によるチェック位置を指定
             //右移動の場合
@@ -255,7 +255,7 @@ namespace Oikake.Actor
                 position.X += Input.Velocity().X;
             }
         }
-        public void YMove()
+         private void YMove()
         {
             //下移動の場合
             if (velocity.Y > 0)

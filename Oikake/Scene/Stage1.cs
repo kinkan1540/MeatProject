@@ -62,13 +62,15 @@ namespace Oikake.Scene
             text = new Text("Hey",new Vector2(320,640));
             Device. Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
-            player = new Player(this, map1);
+           
             robot = new Robot(this, map1);
             characterManager = new CharacterManager();
             characterManager.Initialize();
-            characterManager.Add(player);
+           
             characterManager.Add(robot);
             characterManager.Add(moveBlock); 
+            player = new Player(this, map1);
+            characterManager.Add(player);
 
             bullets = new List<Bullet>();
             timer = new CountDownTimer(20);
@@ -157,7 +159,12 @@ namespace Oikake.Scene
             float minX = currentScreenWidth / 2.0f;
             float maxX = mapWidth - currentScreenWidth / 2.0f;
 
+            if(robot.Isk==false)
            CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
+            if(robot.Isk==true)
+            {
+                CenterCamera = new Vector2(MathHelper.Clamp(robot.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
+            }
        }
 
         public bool IsBlock(Vector2 position)
@@ -187,6 +194,11 @@ namespace Oikake.Scene
         public Player GetPlayer()
         {
             return player;
+        }
+
+        public Robot GetRobot()
+        {
+            return robot;
         }
     }
 }

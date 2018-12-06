@@ -14,7 +14,7 @@ namespace Oikake.Actor
     /// </summary>
     abstract　class Character
     {
-        protected Vector2 position;
+        public Vector2 position;
         protected string name;
         protected bool isDeadFlag;
         protected IGameMediator mediator;
@@ -22,7 +22,9 @@ namespace Oikake.Actor
         public Vector2 Position { get; set; }
         public Vector2 RobotPosition { get; set; }
         public abstract void Hit(Character s);
+        public bool Isk { get; set; }
         protected enum State
+           
         {
             Preparation,//準備
             Dying,

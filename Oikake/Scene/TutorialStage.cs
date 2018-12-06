@@ -27,6 +27,7 @@ namespace Oikake.Scene
         private Player player;
         private Vector2 cameraCenter;
         private MoveBlock moveBlock;
+        private Robot robot;
 
         public TutorialStage(IScene scene)
         {
@@ -57,17 +58,22 @@ namespace Oikake.Scene
             moveBlock = new MoveBlock(this, new Vector2(320, 640), 2);
             Device.Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
-            player = new Player(this,tutorialMap);
+           
+            robot = new Robot(this, tutorialMap);
             characterManager = new CharacterManager();
             characterManager.Initialize();
             characterManager.Add(new Player(this, tutorialMap));
             characterManager.Add(moveBlock);
-            characterManager.Add(player);
             bullets = new List<Bullet>();
             score = new Score();
             timer = new CountDownTimer(30);
             timerUI = new TimerUI(timer);
             tutorialMap.Initialize();
+            if(player.Isk==false)
+            {
+                player = new Player(this, tutorialMap);
+                characterManager.Add(player);
+            }
         }
 
         public bool IsEnd()
@@ -190,6 +196,11 @@ namespace Oikake.Scene
         public Player GetPlayer()
         {
             return player;
+        }
+
+        public Robot GetRobot()
+        {
+            return robot;
         }
     }
 }

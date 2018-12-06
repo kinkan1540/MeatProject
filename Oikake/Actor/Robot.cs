@@ -33,7 +33,7 @@ namespace Oikake.Actor
         private List<Vector2> leftPos;
         private List<Vector2> upPos;
         private List<Vector2> downPos;
-        public bool isk;
+  
 
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace Oikake.Actor
                 movePos = leftPos;
             }
 
-            if(isk)
+            if(Isk)
             {
                 //1マスずつ移動する
                 for (int i = 0; i < Math.Abs(velocity.X); i++)
@@ -258,8 +258,6 @@ namespace Oikake.Actor
                     {
                         if (mediator.IsBlock(position + pos))
                         {
-                            if (IsRidOn())
-                            {
                                 if (Input.GetKeyTrigger(Keys.Space) || Input.IskeyPadDown(PlayerIndex.One, Buttons.A))
                                 {
                                     if (isJump == false)
@@ -269,7 +267,6 @@ namespace Oikake.Actor
                                     }
                                 }
                                 return;
-                            }
                         }
                     }
                     position.X += Input.Velocity().X;
@@ -290,7 +287,7 @@ namespace Oikake.Actor
             {
                 movePos = upPos;
             }
-            if (isk)
+            if (Isk)
             {
                 //1マスずつ移動する
                 for (int i = 0; i < Math.Abs(velocity.Y); i++)
@@ -327,7 +324,7 @@ namespace Oikake.Actor
 
         private void JumpUpdate()
         {
-            if (isk)
+            if (Isk)
             {
                 if (Input.GetKeyTrigger(Keys.Space) || Input.IskeyPadDown(PlayerIndex.One, Buttons.A))
                 {
@@ -410,15 +407,16 @@ namespace Oikake.Actor
         }
         private bool IsRidOn()
         {
-            if(player.Position.X<position.X+player.Position.X)
+            if(player.GetPosition().X<position.X-32)
             {
                 if (Input.IsKeyDown(Keys.F) || Input.IskeyPadDown(PlayerIndex.One, Buttons.B))
                 {
                     if (IsGetOn)
                     {
-                         isk = true;
+                         Isk = true;
                     }
                 }
+              
             }
             return false;
         }

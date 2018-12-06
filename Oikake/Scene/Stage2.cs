@@ -25,6 +25,7 @@ namespace Oikake.Scene
         private Player player;
         private Vector2 cameraCenter;
         private MoveBlock moveBlock;
+        private Robot robot;
 
 
         public Stage2(IScene scene)
@@ -53,10 +54,12 @@ namespace Oikake.Scene
             Device.Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
             player = new Player(this,map2);
+            robot = new Robot(this,map2);
             characterManager = new CharacterManager();
             characterManager.Initialize();
             characterManager.Add(new Player(this,map2));
             characterManager.Add(player);
+            characterManager.Add(robot);
             characterManager.Add(moveBlock);
             bullets = new List<Bullet>();
             timer = new CountDownTimer(30.0f);
@@ -172,6 +175,11 @@ namespace Oikake.Scene
         public Player GetPlayer()
         {
             return player;
+        }
+
+        public Robot GetRobot()
+        {
+            return robot;
         }
     }
 }

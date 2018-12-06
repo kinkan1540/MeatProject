@@ -30,5 +30,7 @@ namespace Oikake.Scene
         bool IsMapBlock(Vector2 position);
 
         Player GetPlayer();
+
+        Robot GetRobot();
     }
 }

@@ -113,7 +113,6 @@ namespace Oikake.Objects
                 }
               
                 player.Position += velocity * speed;
-                player.RobotPosition += velocity * speed;
             }
         }
 
