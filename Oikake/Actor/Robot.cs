@@ -116,7 +116,7 @@ namespace Oikake.Actor
             isJump = false;
             isDeadFlag = false;
             velocity = Vector2.Zero;
-            position = new Vector2(32, 736);
+            position = new Vector2(110, 736);
             motion = new Motion();
             MotionInit();
         }
@@ -165,6 +165,8 @@ namespace Oikake.Actor
                     position += ((MoveBlock)other).Velocity();
                 }
             }
+            
+
         }
 
 
@@ -405,10 +407,12 @@ namespace Oikake.Actor
                 }
             }
         }
+
         private bool IsRidOn()
         {
-            if(player.GetPosition().X<position.X-32)
+            if (Math.Abs(player.GetPosition().X - position.X) < 32&&Math.Abs(player.GetPosition().Y-position.Y)<32)
             {
+              
                 if (Input.IsKeyDown(Keys.F) || Input.IskeyPadDown(PlayerIndex.One, Buttons.B))
                 {
                     if (IsGetOn)
@@ -419,6 +423,11 @@ namespace Oikake.Actor
               
             }
             return false;
+        }
+
+        public override Rectangle GetRect()
+        {
+            return base.GetRect();
         }
     }
 }

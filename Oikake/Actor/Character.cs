@@ -94,7 +94,6 @@ namespace Oikake.Actor
             Rectangle rect = new Rectangle(
                 (int)position.X, (int)position.Y,
                 32, 32);
-
             return rect;
         }
     }

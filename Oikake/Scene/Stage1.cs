@@ -16,8 +16,6 @@ namespace Oikake.Scene
     {
         private CharacterManager characterManager;
         private List<Bullet> bullets;
-        private Timer timer;
-        private TimerUI timerUI;
         private bool IsEndFlag;
         private Sound sound;
         private Map1 map1;
@@ -53,7 +51,6 @@ namespace Oikake.Scene
             renderer.End();
 
             renderer.Begin();
-            timerUI.Draw(renderer);
             renderer.End();
         }
         public void Initialize()
@@ -73,8 +70,7 @@ namespace Oikake.Scene
             characterManager.Add(player);
 
             bullets = new List<Bullet>();
-            timer = new CountDownTimer(20);
-            timerUI = new TimerUI(timer);
+         
             map1.Initialize();
         }
 
@@ -105,12 +101,7 @@ namespace Oikake.Scene
                 nextScene = Scene.Ending;
             }
 
-            if(timer.IsTime()==true)
-            {
-                sound.StopBGM();
-                IsEndFlag = true;
-                nextScene = Scene.Ending;
-            }
+          
             return nextScene;
         }
 
@@ -126,12 +117,7 @@ namespace Oikake.Scene
             characterManager.Update(gameTime);
             Next();
        
-            timer.Update(gameTime);
-            if (timer.IsTime() == true)
-            {
-               
-                IsEndFlag = true;
-            }
+          
             //マップ更新
             map1.Update();
         }
