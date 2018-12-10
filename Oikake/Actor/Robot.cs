@@ -116,7 +116,7 @@ namespace Oikake.Actor
             isJump = false;
             isDeadFlag = false;
             velocity = Vector2.Zero;
-            position = new Vector2(110, 736);
+            position = new Vector2(750f, 736);
             motion = new Motion();
             MotionInit();
         }

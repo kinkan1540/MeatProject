@@ -87,7 +87,7 @@
     <Compile Include="Actor\PlayerBullet.cs" />
     <Compile Include="Actor\RandomAI.cs" />
     <Compile Include="Actor\TraceAI.cs" />
-    <Compile Include="Bullet.cs" />
+    <Compile Include="Actor\Bullet.cs" />
     <Compile Include="Actor\Enemy.cs" />
     <Compile Include="Def\Camera.cs" />
     <Compile Include="Device\Size.cs" />
