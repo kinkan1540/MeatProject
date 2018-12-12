@@ -219,6 +219,9 @@ namespace Oikake.Actor
 
         private void XMove()
         {
+            Rectangle robotRec = new Rectangle();
+            var playerRec = (new Vector2(Screen.Width / 2, Screen.Height / 2) - position+new Vector2(32,32));
+
             var robot = mediator.GetRobot();
             //方向によるチェック位置を指定
             //右移動の場合
@@ -237,19 +240,23 @@ namespace Oikake.Actor
             {
                 foreach (Vector2 pos in movePos)
                 {
-                    if (mediator.IsBlock(position + pos))
-                    {
-                        if (Input.GetKeyTrigger(Keys.Space) || Input.GetKeyTrigger(PlayerIndex.One, Buttons.B))
+                    
+                        if (mediator.IsBlock(position + pos))
                         {
-                            if (isJump == false)
+
+                            if (Input.GetKeyTrigger(Keys.Space) || Input.GetKeyTrigger(PlayerIndex.One, Buttons.B))
                             {
-                                isJump = true;
-                                JumpUpdate();
+                                if (isJump == false)
+                                {
+                                    isJump = true;
+                                    velocity.Y -= 10;
+                                }
                             }
+                            return;
                         }
-                        return;
-                    }
+                    
                 }
+
                 position.X += velocity.X;
             }
         }
