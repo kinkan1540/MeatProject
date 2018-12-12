@@ -21,8 +21,6 @@ namespace Oikake
         }
         public void Update(GameTime gameTime)
         {
-
-            
             if (position.X==Screen.Width)
             {
                 isDead = true;

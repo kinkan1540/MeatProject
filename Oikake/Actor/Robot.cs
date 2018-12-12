@@ -33,7 +33,7 @@ namespace Oikake.Actor
         private List<Vector2> leftPos;
         private List<Vector2> upPos;
         private List<Vector2> downPos;
-  
+
 
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Oikake.Actor
         }
         public override void Update(GameTime gameTime)
         {
-        
+
             player = mediator.GetPlayer();
             if (player != null)
             {
@@ -139,7 +139,7 @@ namespace Oikake.Actor
 
             Ride();
 
-         
+
             if (position.Y >= Screen.Height)
             {
                 isDeadFlag = true;
@@ -148,7 +148,7 @@ namespace Oikake.Actor
         public override void Hit(Character other)
         {
             //ロボットの当たり判定
-            if(other is PlayerBullet)
+            if (other is PlayerBullet)
             {
                 hp -= 1;
                 if (hp < 0)
@@ -165,7 +165,7 @@ namespace Oikake.Actor
                     position += ((MoveBlock)other).Velocity();
                 }
             }
-            
+
 
         }
 
@@ -179,7 +179,7 @@ namespace Oikake.Actor
         private void MoveUpdate()
         {
             //キー入力の移動量を取得
-            velocity.X = Input.Velocity().X * 5;
+            velocity.X = Input.Velocity().X * 2.25f;
             //入力されていれば移動処理状態にする
             if (velocity.Length() > 0)
             {
@@ -251,7 +251,7 @@ namespace Oikake.Actor
                 movePos = leftPos;
             }
 
-            if(Isk)
+            if (Isk)
             {
                 //1マスずつ移動する
                 for (int i = 0; i < Math.Abs(velocity.X); i++)
@@ -260,21 +260,20 @@ namespace Oikake.Actor
                     {
                         if (mediator.IsBlock(position + pos))
                         {
-                                if (Input.GetKeyTrigger(Keys.Space) || Input.IskeyPadDown(PlayerIndex.One, Buttons.A))
+                            if (Input.GetKeyTrigger(Keys.Space) || Input.IskeyPadDown(PlayerIndex.One, Buttons.A))
+                            {
+                                if (isJump == false)
                                 {
-                                    if (isJump == false)
-                                    {
-                                        isJump = true;
-                                        velocity.Y -= 10;
-                                    }
+                                    isJump = true;
+                                    velocity.Y -= 10;
                                 }
-                                return;
+                            }
+                            return;
                         }
                     }
-                    position.X += Input.Velocity().X;
+                    position.X += velocity.X;
                 }
             }
-            
         }
         public void YMove()
         {
@@ -410,17 +409,15 @@ namespace Oikake.Actor
 
         private bool IsRidOn()
         {
-            if (Math.Abs(player.GetPosition().X - position.X) < 32&&Math.Abs(player.GetPosition().Y-position.Y)<32)
+            if (Math.Abs(player.GetPosition().X - position.X) < 32 && Math.Abs(player.GetPosition().Y - position.Y) < 32)
             {
-              
                 if (Input.IsKeyDown(Keys.F) || Input.IskeyPadDown(PlayerIndex.One, Buttons.B))
                 {
                     if (IsGetOn)
                     {
-                         Isk = true;
+                        Isk = true;
                     }
                 }
-              
             }
             return false;
         }

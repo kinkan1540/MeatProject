@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework;
 
 namespace Oikake.Actor
 {
-  abstract  class AI
+    abstract class AI
     {
         protected Vector2 position;//移動量
 
-       public AI()
+        public AI()
         {
             position = Vector2.Zero;
         }

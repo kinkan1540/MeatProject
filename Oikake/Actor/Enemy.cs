@@ -190,7 +190,5 @@ namespace Oikake.Actor
         {
 
         }
-
-       
     }
 }
