@@ -17,6 +17,7 @@ namespace Oikake.Actor
 
     class Player : Character
     {
+        #region　変数
         Vector2 velocity = Vector2.Zero;
         private Sound sound;
         private Motion motion;
@@ -28,11 +29,19 @@ namespace Oikake.Actor
         private List<Vector2> movePos;
         private Timer timer;
         private int bulletNum;
+        public int Hp { get; set; }
+        private int counter;
+        private CountUpTimer countUp;
         //各ブロック調査用
         private List<Vector2> rightPos;
         private List<Vector2> leftPos;
         private List<Vector2> upPos;
         private List<Vector2> downPos;
+        private int Damege;
+
+        private bool isDamage;
+        private int damageCnt;
+        #endregion 
 
         /// <summary>
         /// 向き
@@ -103,12 +112,25 @@ namespace Oikake.Actor
         /// <param name="renderer"></param>
         public override void Draw(Renderer renderer)
         {
-            renderer.DrawTexture(name, position, motion.DrawingRange());
+            if (isDamage)
+            {
+                if (counter % 10 == 0)
+                {
+                    renderer.DrawTexture(name, position, motion.DrawingRange());
+                }
+            }
+            if (counter == 0)
+            {
+                renderer.DrawTexture(name, position, motion.DrawingRange());
+            }
         }
 
         public override void Initialize()
         {
+            counter = 0;
+            countUp = new CountUpTimer();
             bulletNum = 5;
+            Hp = 4;
             timer = new CountDownTimer(0.3f);
             IsGoal();
             IsTrap();
@@ -119,9 +141,13 @@ namespace Oikake.Actor
             position = new Vector2(32, 736);
             motion = new Motion();
             MotionInit();
+
+            damageCnt = 0;
         }
+
         public override void Update(GameTime gameTime)
         {
+            Damege = 1;
             BulletUpdate();
             FallStart();
             JumpUpdate();
@@ -130,18 +156,23 @@ namespace Oikake.Actor
             UpdateMotion();
             motion.Update(gameTime);
             IsTrap();
-
             Ride();
+            Invincibly();
+            DamgeUpdate();
 
+            if (Hp <= 0)
+            {
+                isDeadFlag = true;
+            }
 
             if (position.Y >= Screen.Height)
             {
                 isDeadFlag = true;
             }
+            
         }
         public override void Hit(Character other)
         {
-
             if (other is MoveBlock)
             {
                 if (IsUp(other))
@@ -159,7 +190,7 @@ namespace Oikake.Actor
         private void MoveUpdate()
         {
             //キー入力の移動量を取得
-            velocity.X = Input.Velocity().X * 2.25f;
+            velocity.X = Input.Velocity().X * 1.5f;
             //入力されていれば移動処理状態にする
             if (velocity.Length() > 0)
             {
@@ -219,10 +250,6 @@ namespace Oikake.Actor
 
         private void XMove()
         {
-            Rectangle robotRec = new Rectangle();
-            var playerRec = (new Vector2(Screen.Width / 2, Screen.Height / 2) - position+new Vector2(32,32));
-
-            var robot = mediator.GetRobot();
             //方向によるチェック位置を指定
             //右移動の場合
             if (velocity.X > 0)
@@ -240,21 +267,18 @@ namespace Oikake.Actor
             {
                 foreach (Vector2 pos in movePos)
                 {
-                    
-                        if (mediator.IsBlock(position + pos))
-                        {
+                    if (mediator.IsBlock(position + pos))
+                    {
 
-                            if (Input.GetKeyTrigger(Keys.Space) || Input.GetKeyTrigger(PlayerIndex.One, Buttons.B))
+                        if (Input.GetKeyTrigger(Keys.Space) || Input.GetKeyTrigger(PlayerIndex.One, Buttons.B))
+                        {
+                            if (isJump == false)
                             {
-                                if (isJump == false)
-                                {
-                                    isJump = true;
-                                    velocity.Y -= 10;
-                                }
+                                isJump = true;
                             }
-                            return;
                         }
-                    
+                        return;
+                    }
                 }
 
                 position.X += velocity.X;
@@ -300,7 +324,6 @@ namespace Oikake.Actor
                     {
                         isJump = true;
                     }
-
                 }
                 position.Y += Math.Sign(velocity.Y);
             }
@@ -387,6 +410,9 @@ namespace Oikake.Actor
             }
         }
 
+        /// <summary>
+        /// プレイヤーの銃管理
+        /// </summary>
         private void BulletUpdate()
         {
             if (Input.GetKeyTrigger(Keys.Z) || Input.IskeyPadDown(PlayerIndex.One, Buttons.RightShoulder))
@@ -412,6 +438,57 @@ namespace Oikake.Actor
             if (Input.GetKeyTrigger(Keys.E) || Input.IskeyPadDown(PlayerIndex.One, Buttons.X))
             {
                 bulletNum = 5;
+            }
+        }
+
+        /// <summary>
+        /// ダメージ管理
+        /// </summary>
+        public void Invincibly()
+        {
+            if (mediator.GetRobot().IsGetOn == false)
+            {
+                if (Math.Abs(mediator.GetRobot().GetPosition().X - position.X) < 32 && Math.Abs(GetPosition().Y - mediator.GetRobot().GetPosition().Y) < 32)
+                {
+                    if (isDamage == false)
+                    {
+                        isDamage = true;
+                        Hp -= Damege;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// ダメージを受けた際の無敵時間
+        /// </summary>
+        private void DamgeUpdate()
+        {
+            if (IsGetOn == false)
+            {
+                if (isDamage)
+                {
+                    damageCnt++;
+                    counter++;
+                    Damege = 0;
+                    if (100 < damageCnt)
+                    {
+                        isDamage = false;
+                        damageCnt = 0;
+                        counter = 0;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 落下した際の死亡flag
+        /// </summary>
+        private void FaleDead()
+        {
+            if (position.Y >= Screen.Height)
+            {
+                isDeadFlag = true;
             }
         }
     }

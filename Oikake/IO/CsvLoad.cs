@@ -8,72 +8,114 @@ using System.IO;
 
 namespace Oikake.IO
 {
-    static class CsvLoad
+     class CsvLoad
     {
-
-        /// <summary>
-        /// 全ての行のロード、縦横のサイズをカウント
-        /// </summary>
-        /// <param name="streamReader">ストリームリーダー</param>
-        /// <param name="lines">行のデーター登録用リスト</param>
-        /// <param name="splitLine">1行分の分割データ保存用</param>
-        /// <returns></returns>
-        private static Vector2 CsvLoadAndCountent(StreamReader streamReader,List<string>lines,string[]splitLine)
+        private List<string[]> stringDate;
+        public void Clear()
         {
-            //一行ずつ最後まで読みこむ
-            while (streamReader.Peek()>=0)
-            {
-                //ファイルから1行読みこんでlinesにAdd
-                lines.Add(streamReader.ReadLine());
-            }
-            //何行あるか数える(縦の個数)
-            int lineCount = lines.Count;
-
-            //1行目を「,」区切りで分解する
-            splitLine = lines[0].Split(',');
-            //「,」区切りで何個あったか数える(横の個数)
-            int colCount = splitLine.Length;
-
-            //数えた大きさを返す
-            return new Vector2(colCount, lineCount);
+            stringDate.Clear();
         }
 
-        /// <summary>
-        /// マップデータロード
-        /// </summary>
-        /// <param name="filePath">ファイルパス</param>
-        /// <returns>データの入った2重配列</returns>
-        public static int[,]Load(string filePath)
+        public CsvLoad()
         {
-            //戻り値
-            int[,] mapDate;　
-            //Readerの生成
-            StreamReader streamReader = new StreamReader(filePath);
-            //読みこんだデータを1行ずつ登録するリスト
-            List<string> lines = new List<string>();
-            //1行を分解して保存するデータ
-            string[] spitLine = null;
-            //データの個数を数える
-            Vector2 size = CsvLoadAndCountent(streamReader, lines, spitLine);
-            //データの個数で配列を生成
-            mapDate = new int[(int)size.Y, (int)size.X];
-            //1行ずつ取り出す
-            for(int i=0;i<size.Y;i++)
+            stringDate = new List<string[]>();
+        }
+
+        public string[][]GetArrayDate()
+        {
+            return stringDate.ToArray();
+        }
+
+        public List<string[]>GetDate()
+        {
+            return stringDate;
+        }
+
+        public int[][] GetIntDate()
+        {
+            //ジャグ配列を習得し、空のint型の2次元配列を習得
+            var date = GetArrayDate();
+            int row = date.Count();
+            
+            int[][] intDate = new int[row][];
+            for (int i = 0; i < row; i++)
             {
-                //「,」で分ける
-                spitLine = lines[i].Split(',');
-                //分けた分を1行ずつ配列に入れていく
-                for(int j=0;j<size.X;j++)
+                int col = date[i].Count();
+                intDate[i] = new int[col];
+            }
+            for (int y = 0; y < row; y++)
+            {
+                for (int x = 0; x < intDate[y].Count(); x++)
                 {
-                    mapDate[i, j] = int.Parse(spitLine[j]);
+                    intDate[y][x] = int.Parse(date[y][x]);
                 }
             }
-            //ストリームを閉じる
-            streamReader.Close();
-
-            //戻り値を返す
-            return mapDate;
+            return intDate;
         }
 
+        public string[,] GetStringMatrix()
+        {
+            var date = GetArrayDate();
+            int row = date.Count();
+            int col = date[0].Count();
+
+            string[,] result = new string[row, col];
+            for (int y = 0; y < row; y++)
+            {
+                for (int x = 0; x < col; x++)
+                {
+                    result[y, x] = date[y][x];
+                }
+            }
+            return result;
+        }
+
+        public int[,] GetIntMatrix()
+        {
+            var date = GetIntDate();
+            int row = date.Count();
+            int col = date[0].Count();
+
+            int[,] result = new int[row, col];
+            for (int y = 0; y < row; y++)
+            {
+                for (int x = 0; x < col; x++)
+                {
+                    result[y, x] = date[y][x];
+                }
+            }
+            return result;
+        }
+
+        public void Read(string filename,string path="./")
+        {
+            Clear();
+            try
+            {
+                using (var sr = new System.IO.StreamReader(@"Content/" + path + filename))
+                {
+                    while(!sr.EndOfStream)
+                    {
+                        var line = sr.ReadLine();
+                        var values = line.Split(',');
+
+                        stringDate.Add(values);
+
+#if DEBUG
+                        foreach(var v in values)
+                        {
+                            System.Console.Write("{0}", v);
+                        }
+
+                        System.Console.WriteLine();
+#endif
+                    }
+                }
+            }
+            catch(System.Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+        }
     }
 }

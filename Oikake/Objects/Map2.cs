@@ -31,7 +31,8 @@ namespace Oikake.Objects
         /// </summary>
         public override void Initialize()
         {
-            mapDate = CsvLoad.Load("Content/csv/Bolck2.csv");
+            var csvLoad = new CsvLoad();
+           csvLoad.Read ("Bolck2.csv");
             Device.Camera.SetMin(Vector2.Zero);
             Device.Camera.SetMax(new Vector2(
                 mapDate.GetLength(0) * Size.ChipX - Screen.Width,

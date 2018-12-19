@@ -151,7 +151,7 @@ namespace Oikake.Actor
             if(other is PlayerBullet)
             {
                 hp -= 1;
-                if (hp < 0)
+                if (hp <= 0)
                 {
                     IsGetOn = true;
                 }
@@ -412,15 +412,15 @@ namespace Oikake.Actor
         {
             if (Math.Abs(player.GetPosition().X - position.X) < 32&&Math.Abs(player.GetPosition().Y-position.Y)<32)
             {
-              
                 if (Input.IsKeyDown(Keys.F) || Input.IskeyPadDown(PlayerIndex.One, Buttons.B))
                 {
                     if (IsGetOn)
                     {
+                        IsGetOn = true;
                          Isk = true;
+                        return true;
                     }
                 }
-              
             }
             return false;
         }

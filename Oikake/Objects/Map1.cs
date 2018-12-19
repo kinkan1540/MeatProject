@@ -29,15 +29,24 @@ namespace Oikake.Objects
         /// </summary>
         public virtual void Initialize()
         {
-            mapDate = CsvLoad.Load("Content/csv/Bolck.csv");
+            Load("Bolck.csv");
+        }
+
+        public void Load(string filename)
+        {
+            var csvload = new CsvLoad();
+            csvload.Read(filename, "csv/");
+            mapDate = csvload.GetIntMatrix();
             Device.Camera.SetMin(Vector2.Zero);
             Device.Camera.SetMax(new Vector2(
                 mapDate.GetLength(0) * Size.ChipX - Screen.Width,
                 mapDate.GetLength(1) * Size.ChipY - Screen.Height));
         }
+
+
         public virtual void Update()
         {
- 
+          
         }
         public virtual void Draw(Renderer renderer)
         {

@@ -48,6 +48,7 @@ namespace Oikake.Scene
             renderer.DrawTexture("mario", Vector2.Zero);
             map1.Draw(renderer);
             characterManager.Draw(renderer);
+            
             renderer.End();
 
             renderer.Begin();

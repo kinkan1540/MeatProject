@@ -18,13 +18,15 @@ namespace Oikake.Actor
         protected string name;
         protected bool isDeadFlag;
         protected IGameMediator mediator;
-        public bool IsGetOn { get;set ;}
-        public Vector2 Position { get; set; }
-        public Vector2 RobotPosition { get; set; }
+        public bool IsGetOn { get; set; }
+        public Vector2 Position { get; set;}
+        public Vector2 RobotPosition { get; set;}
         public abstract void Hit(Character s);
         public bool Isk { get; set; }
         protected enum State
            
+          
+
         {
             Preparation,//準備
             Dying,
