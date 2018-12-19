@@ -106,13 +106,21 @@ namespace Oikake.Objects
             if (other is Player)
             {
                 Player player = (Player)other;
-
-                if (player.Position.Y > position.Y||player.RobotPosition.Y>position.Y)
+                if (player.Position.Y > position.Y
+                    )
                 {
                     return;
                 }
-              
                 player.Position += velocity * speed;
+            }
+
+            if(other is Robot)
+            {
+                Robot robot = (Robot)other;
+                if(robot.RobotPosition.Y>position.Y)
+                {
+                    robot.Position += velocity * speed;
+                }
             }
         }
 

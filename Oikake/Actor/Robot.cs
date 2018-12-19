@@ -27,6 +27,9 @@ namespace Oikake.Actor
         private List<Vector2> movePos;
         private Timer timer;
         Player player;
+        private Range range;
+        //敵の時のポジション移動速度
+        private float speed;
 
         //各ブロック調査用
         private List<Vector2> rightPos;
@@ -82,9 +85,10 @@ namespace Oikake.Actor
             }
         }
 
-        public Robot(IGameMediator mediator, Map1 map1)
+        public Robot(IGameMediator mediator, Map1 map1,float speed)
             : base("Robot", mediator)
         {
+            this.speed = speed;
             Device.Camera.GetScreenPos(position);
             this.map = map1;
             position = Vector2.Zero;
@@ -116,9 +120,10 @@ namespace Oikake.Actor
             isJump = false;
             isDeadFlag = false;
             velocity = Vector2.Zero;
-            position = new Vector2(750f, 736);
+            position = new Vector2(350, 736);
             motion = new Motion();
             MotionInit();
+            range = new Range((int)position.X - 100, (int)position.X + 100);
         }
         public override void Update(GameTime gameTime)
         {
@@ -196,6 +201,16 @@ namespace Oikake.Actor
                 {
                     isMove = false;
                     moveCount = 0;
+                }
+            }
+
+            //移動処理
+            if(IsGetOn==false)
+            {
+                position.X += speed;
+                if (range.IsOutOFRange((int)position.X))
+                {
+                    speed *= -1;
                 }
             }
         }
@@ -429,6 +444,7 @@ namespace Oikake.Actor
         {
             return base.GetRect();
         }
+        
     }
 }
 

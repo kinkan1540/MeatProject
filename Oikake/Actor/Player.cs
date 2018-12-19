@@ -112,6 +112,7 @@ namespace Oikake.Actor
         /// <param name="renderer"></param>
         public override void Draw(Renderer renderer)
         {
+         
             if (isDamage)
             {
                 if (counter % 10 == 0)
@@ -444,7 +445,7 @@ namespace Oikake.Actor
         /// <summary>
         /// ダメージ管理
         /// </summary>
-        public void Invincibly()
+        private void Invincibly()
         {
             if (mediator.GetRobot().IsGetOn == false)
             {

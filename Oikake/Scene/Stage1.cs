@@ -25,7 +25,6 @@ namespace Oikake.Scene
         private MoveBlock moveBlock;
         private Text text;
         private Robot robot;
-
         private Dictionary<int, string> stageNum_to_CSV = new Dictionary<int, string>()
         {
             {0, "Content/csv/Bolck.csv"},
@@ -44,6 +43,8 @@ namespace Oikake.Scene
 
         public void Draw(Renderer renderer)
         {
+            int b = 300;
+            int a = 0;
             renderer.Begin(CenterCamera);
             renderer.DrawTexture("mario", Vector2.Zero);
             map1.Draw(renderer);
@@ -52,6 +53,12 @@ namespace Oikake.Scene
             renderer.End();
 
             renderer.Begin();
+            for(int i = 1; i <= player.Hp; i++)
+            {
+                renderer.DrawTexture("hart", new Vector2(a, 0));
+
+                a = a + b;
+            }
             renderer.End();
         }
         public void Initialize()
@@ -61,7 +68,7 @@ namespace Oikake.Scene
             Device. Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
            
-            robot = new Robot(this, map1);
+            robot = new Robot(this, map1,5);
             characterManager = new CharacterManager();
             characterManager.Initialize();
            
@@ -147,7 +154,7 @@ namespace Oikake.Scene
             float maxX = mapWidth - currentScreenWidth / 2.0f;
 
             if(robot.Isk==false)
-           CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
+             CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
             if(robot.Isk==true)
             {
                 CenterCamera = new Vector2(MathHelper.Clamp(robot.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
