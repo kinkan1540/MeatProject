@@ -91,7 +91,7 @@ namespace Oikake.Scene
         public void Update(GameTime gameTime)
         {
             sound.PlayBGM("GoodEnding");
-            if (Input.GetKeyTrigger(Keys.Space))
+            if (Input.GetKeyTrigger(Keys.Space)||Input.IskeyPadDown(PlayerIndex.One,Buttons.B))
             {
                 isEndFlag = true;
                 sound.PlaySE("endingse");

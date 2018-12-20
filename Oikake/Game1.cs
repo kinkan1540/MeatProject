@@ -95,6 +95,7 @@ namespace Oikake
             renderer.LoadContent("Robot");
             renderer.LoadContent("white");
             renderer.LoadContent("hart");
+            renderer.LoadContent("RobotDashu");
             //1ピクセル黒画像の生成
             Texture2D fade = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = new Color[1 * 1];
@@ -114,6 +115,9 @@ namespace Oikake
             sound.LoadBGM("TitleSound", filepach);
             sound.LoadBGM("BadEnd", filepach);
             sound.LoadBGM("GoodEnding", filepach);
+            sound.LoadBGM("EndingBGM", filepach);
+            sound.LoadBGM("StageBGM", filepach);
+            sound.LoadBGM("TitleBGM", filepach);
             // この上にロジックを記述
         }
 

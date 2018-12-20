@@ -43,7 +43,7 @@ namespace Oikake.Scene
 
         public void Draw(Renderer renderer)
         {
-            int b = 300;
+            int b = 150;
             int a = 0;
             renderer.Begin(CenterCamera);
             renderer.DrawTexture("mario", Vector2.Zero);
@@ -53,11 +53,20 @@ namespace Oikake.Scene
             renderer.End();
 
             renderer.Begin();
-            for(int i = 1; i <= player.Hp; i++)
+            for(int i = 1; i <= player.HP; i++)
             {
-                renderer.DrawTexture("hart", new Vector2(a, 0));
-
                 a = a + b;
+                renderer.DrawTexture("hart", new Vector2(a, 0));
+            }
+            a = 0;
+            if (robot.IsA)
+            {
+                for (int i = 1; i <= robot.HP; i++)
+                {
+                    renderer.DrawTexture("hart", new Vector2(a, 150));
+
+                    a = a + b;
+                }
             }
             renderer.End();
         }
@@ -99,7 +108,7 @@ namespace Oikake.Scene
             if (player.IsGoal() == true)
             {
                 IsEndFlag = true;
-                nextScene = Scene.Ending;
+                nextScene = Scene.GoodEnding;
             }
 
             if (characterManager.IsPlayerDead())
@@ -153,9 +162,9 @@ namespace Oikake.Scene
             float minX = currentScreenWidth / 2.0f;
             float maxX = mapWidth - currentScreenWidth / 2.0f;
 
-            if(robot.Isk==false)
+            if(robot.IsA==false)
              CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
-            if(robot.Isk==true)
+            if(robot.IsA==true)
             {
                 CenterCamera = new Vector2(MathHelper.Clamp(robot.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
             }

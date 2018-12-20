@@ -13,6 +13,24 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../Music/MeatProject/BGM/EndingBGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../Music/MeatProject/BGM/EndingBGM.mp3;Sound/EndingBGM.mp3
+
+#begin ../../../../Music/MeatProject/BGM/StageBGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../Music/MeatProject/BGM/StageBGM.mp3;Sound/StageBGM.mp3
+
+#begin ../../../../Music/MeatProject/BGM/TitleBGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../Music/MeatProject/BGM/TitleBGM.mp3;Sound/TitleBGM.mp3
+
 #begin Action.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -220,6 +238,18 @@
 /processorParam:TextureFormat=Color
 /build:Robot.png
 
+#begin RobotDashu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RobotDashu.png
+
 #begin score.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -237,6 +267,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/BadEnd.mp3
+
+#begin Sound/BulletHit.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/BulletHit.mp3
+
+#begin Sound/cursor1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/cursor1.mp3
 
 #begin Sound/endingbgm.mp3
 /importer:Mp3Importer
@@ -273,6 +315,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/GoodEnding.mp3
+
+#begin Sound/Playershot.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Playershot.mp3
+
+#begin Sound/Select.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Select.mp3
 
 #begin Sound/titlebgm.mp3
 /importer:Mp3Importer

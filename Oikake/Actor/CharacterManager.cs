@@ -82,7 +82,7 @@ namespace Oikake.Actor
         public void Update(GameTime gameTime)
         {
             var robot = GetRobot();
-            if (robot != null && robot.Isk)
+            if (robot != null && robot.IsA)
             {
                 GetPlayer().position = robot.position;
             }
@@ -140,7 +140,7 @@ namespace Oikake.Actor
             }
             foreach (var p in players)
             {
-                if (p is Player && GetRobot().Isk)
+                if (p is Player && GetRobot().IsA)
                 {
                     continue;
                 }

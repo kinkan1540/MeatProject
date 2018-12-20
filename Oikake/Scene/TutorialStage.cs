@@ -69,7 +69,7 @@ namespace Oikake.Scene
             timer = new CountDownTimer(30);
             timerUI = new TimerUI(timer);
             tutorialMap.Initialize();
-            if(player.Isk==false)
+            if(player.IsA==false)
             {
                 player = new Player(this, tutorialMap);
                 characterManager.Add(player);

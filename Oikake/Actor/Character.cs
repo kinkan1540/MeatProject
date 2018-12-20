@@ -15,6 +15,7 @@ namespace Oikake.Actor
     abstract　class Character
     {
         public Vector2 position;
+        public int HP { get; set; }
         protected string name;
         protected bool isDeadFlag;
         protected IGameMediator mediator;
@@ -22,11 +23,14 @@ namespace Oikake.Actor
         public Vector2 Position { get; set;}
         public Vector2 RobotPosition { get; set;}
         public abstract void Hit(Character s);
-        public bool Isk { get; set; }
+        public bool IsA{ get;set;}
+        public bool isDamage { get; set; }
+        public int damageCnt { get; set; }
+        public int counter{ get; set; }
+        public int Damege { get; set;}
+
         protected enum State
            
-          
-
         {
             Preparation,//準備
             Dying,
@@ -97,6 +101,38 @@ namespace Oikake.Actor
                 (int)position.X, (int)position.Y,
                 32, 32);
             return rect;
+        }
+
+        public bool Invincibly()
+        {
+            if (mediator.GetRobot().IsGetOn == false)
+            {
+                if (Math.Abs(mediator.GetRobot().GetPosition().X - position.X) < 32 && Math.Abs(GetPosition().Y - mediator.GetRobot().GetPosition().Y) < 32)
+                {
+                    if (isDamage == false)
+                    {
+                        isDamage = true;
+                        HP -= Damege;
+                        return true;
+                    }
+                }
+            }
+            if (IsGetOn == false)
+            {
+                if (isDamage)
+                {
+                    damageCnt++;
+                    counter++;
+                    Damege = 0;
+                    if (100 < damageCnt)
+                    {
+                        isDamage = false;
+                        damageCnt = 0;
+                        counter = 0;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

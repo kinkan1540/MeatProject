@@ -266,7 +266,7 @@ namespace Oikake.Actor
                 movePos = leftPos;
             }
 
-            if(Isk)
+            if(IsA)
             {
                 //1マスずつ移動する
                 for (int i = 0; i < Math.Abs(velocity.X); i++)
@@ -304,7 +304,7 @@ namespace Oikake.Actor
             {
                 movePos = upPos;
             }
-            if (Isk)
+            if (IsA)
             {
                 //1マスずつ移動する
                 for (int i = 0; i < Math.Abs(velocity.Y); i++)
@@ -341,7 +341,7 @@ namespace Oikake.Actor
 
         private void JumpUpdate()
         {
-            if (Isk)
+            if (IsA)
             {
                 if (Input.GetKeyTrigger(Keys.Space) || Input.IskeyPadDown(PlayerIndex.One, Buttons.A))
                 {
@@ -432,7 +432,7 @@ namespace Oikake.Actor
                     if (IsGetOn)
                     {
                         IsGetOn = true;
-                         Isk = true;
+                         IsA = true;
                         return true;
                     }
                 }
