@@ -90,8 +90,8 @@ namespace Oikake.Scene
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            sound.PlayBGM("GoodEnding");
-            if (Input.GetKeyTrigger(Keys.Space))
+            sound.PlayBGM("EndingBGM");
+            if (Input.GetKeyTrigger(Keys.Space)||Input.IskeyPadDown(PlayerIndex.One,Buttons.A))
             {
                 isEndFlag = true;
                 sound.PlaySE("endingse");

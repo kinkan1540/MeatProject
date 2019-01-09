@@ -142,7 +142,7 @@ namespace Oikake.Actor
             {
                 if (p is Player && GetRobot().Isk)
                 {
-                   continue;
+                    continue;
                 }
                 p.Draw(renderer);
             }

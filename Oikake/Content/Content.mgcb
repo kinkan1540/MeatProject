@@ -13,11 +13,23 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Action.mp3
+#begin ../../../../Music/MeatProject/BGM/EndingBGM.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Action.mp3
+/build:../../../../Music/MeatProject/BGM/EndingBGM.mp3;EndingBGM.mp3
+
+#begin ../../../../Music/MeatProject/BGM/StageBGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../Music/MeatProject/BGM/StageBGM.mp3;StageBGM.mp3
+
+#begin ../../../../Music/MeatProject/BGM/TitleBGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../Music/MeatProject/BGM/TitleBGM.mp3;Sound/TitleBGM.mp3
 
 #begin background.png
 /importer:TextureImporter
@@ -60,6 +72,18 @@
 
 #begin csv/Bolck2.csv
 /copy:csv/Bolck2.csv
+
+#begin csv/taitoru.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:csv/taitoru.png
 
 #begin csv/TutorialStage.csv
 /copy:csv/TutorialStage.csv
@@ -148,6 +172,18 @@
 /processorParam:Quality=Best
 /build:gameplayse.wav
 
+#begin hart.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:hart.png
+
 #begin mario.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -226,11 +262,17 @@
 /processorParam:Quality=Best
 /build:Sound/BadEnd.mp3
 
-#begin Sound/endingbgm.mp3
+#begin Sound/BulletHit.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Sound/endingbgm.mp3
+/build:Sound/BulletHit.mp3
+
+#begin Sound/cursor1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/cursor1.mp3
 
 #begin Sound/endingse.wav
 /importer:WavImporter
@@ -262,11 +304,17 @@
 /processorParam:Quality=Best
 /build:Sound/GoodEnding.mp3
 
-#begin Sound/titlebgm.mp3
+#begin Sound/Playershot.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Sound/titlebgm.mp3
+/build:Sound/Playershot.mp3
+
+#begin Sound/StageBGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/StageBGM.mp3
 
 #begin Sound/titlese.wav
 /importer:WavImporter
@@ -292,6 +340,18 @@
 /processorParam:TextureFormat=Color
 /build:stage.BMP
 
+#begin taitoru.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:taitoru.png
+
 #begin timer.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -303,24 +363,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:timer.bmp
-
-#begin Title.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Title.png
-
-#begin titlebgm.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:titlebgm.mp3
 
 #begin white.BMP
 /importer:TextureImporter

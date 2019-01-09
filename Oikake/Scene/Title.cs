@@ -25,7 +25,7 @@ namespace Oikake.Scene
         public void Draw(Renderer renderer)
         {
             renderer.Begin();
-            renderer.DrawTexture("Title", Vector2.Zero);
+            renderer.DrawTexture("taitoru", Vector2.Zero);
             renderer.End();
         }
 
@@ -62,10 +62,10 @@ namespace Oikake.Scene
         public void Update(GameTime gameTime)
         {
             motion.Update(gameTime);
-            sound.PlayBGM("Gameplay");
+            sound.PlayBGM("TitleBGM");
             if(Input.GetKeyTrigger(Keys.Space)||Input.GetKeyTrigger(PlayerIndex.One,Buttons.A))
             {
-                sound.PlaySE("titlese");
+                //sound.PlaySE("TitleBGM");
                 isEndFrag = true;
                 nextScene = Scene.Stage1;
             }

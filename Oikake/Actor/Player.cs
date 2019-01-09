@@ -29,7 +29,7 @@ namespace Oikake.Actor
         private List<Vector2> movePos;
         private Timer timer;
         private int bulletNum;
-        public int Hp { get; set; }
+       
         private int counter;
         private CountUpTimer countUp;
         //各ブロック調査用
@@ -112,6 +112,7 @@ namespace Oikake.Actor
         /// <param name="renderer"></param>
         public override void Draw(Renderer renderer)
         {
+         
             if (isDamage)
             {
                 if (counter % 10 == 0)
@@ -130,7 +131,7 @@ namespace Oikake.Actor
             counter = 0;
             countUp = new CountUpTimer();
             bulletNum = 5;
-            Hp = 4;
+            Hp = 3;
             timer = new CountDownTimer(0.3f);
             IsGoal();
             IsTrap();
@@ -444,7 +445,7 @@ namespace Oikake.Actor
         /// <summary>
         /// ダメージ管理
         /// </summary>
-        public void Invincibly()
+        private void Invincibly()
         {
             if (mediator.GetRobot().IsGetOn == false)
             {

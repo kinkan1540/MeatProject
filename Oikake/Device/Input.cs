@@ -189,7 +189,7 @@ namespace Oikake.Device
         /// <param name="index"></param>
         /// <param name="button"></param>
         /// <returns>キーが押されていたら</returns>
-        public static bool GetkeyState(PlayerIndex index,Buttons button)
+        public static bool PadGetkeyState(PlayerIndex index,Buttons button)
         {
             //つながっていなければfalseを返す
             if(currentGamePads[index].IsConnected==false)
@@ -198,6 +198,25 @@ namespace Oikake.Device
             }
             return currentGamePads[index].IsButtonDown(button);
         }
+
+        //public static bool PadGetTriggerCount(PlayerIndex index,Buttons buttons,int Count)
+        //{
+        //    currentGamePads.Clear();
+        //    //つながっていなければfalseを返す
+        //    if(currentGamePads[index].IsConnected==false)
+        //    {
+        //        return false;
+        //    }
+        //    for(int i=0;i<currentGamePads.Count;i++)
+        //    {
+        //        Count++;
+        //        if(Count==120)
+        //        {
+        //            currentGamePads[playerIndex[i]] = GamePad.GetState(playerIndex[Count]);
+        //        }
+        //    }
+        //    return 
+        //}
 
         /// <summary>
         /// キーが押されているか

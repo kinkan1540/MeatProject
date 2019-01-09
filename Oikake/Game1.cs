@@ -39,7 +39,7 @@ namespace Oikake
             graphicsDevice.PreferredBackBufferWidth = Screen.Width;
             graphicsDevice.PreferredBackBufferHeight = Screen.Height;
 
-           // graphicsDevice.IsFullScreen = true;
+            graphicsDevice.IsFullScreen = true;
 
             Window.Title = "MeatProject";
         }
@@ -81,7 +81,7 @@ namespace Oikake
             renderer.LoadContent("number");
             renderer.LoadContent("score");         
             renderer.LoadContent("timer");
-            renderer.LoadContent("Title");
+            renderer.LoadContent("taitoru");
             renderer.LoadContent("mario");
             renderer.LoadContent("background");
             renderer.LoadContent("Player");
@@ -94,6 +94,7 @@ namespace Oikake
             renderer.LoadContent("Description2");
             renderer.LoadContent("Robot");
             renderer.LoadContent("white");
+            renderer.LoadContent("hart");
             //1ピクセル黒画像の生成
             Texture2D fade = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = new Color[1 * 1];
@@ -103,9 +104,7 @@ namespace Oikake
 
             Sound sound = gameDevice.GetSound();
             string filepach = "./Sound/";
-            sound.LoadBGM("titlebgm", filepach);
             sound.LoadBGM("gameplaybgm", filepach);
-            sound.LoadBGM("endingbgm", filepach);
             sound.LoadSE("titlese", filepach);
             sound.LoadSE("gameplayse", filepach);
             sound.LoadBGM("Gameplay", filepach);
@@ -113,6 +112,9 @@ namespace Oikake
             sound.LoadBGM("TitleSound", filepach);
             sound.LoadBGM("BadEnd", filepach);
             sound.LoadBGM("GoodEnding", filepach);
+            sound.LoadBGM("TitleBGM",filepach);
+            sound.LoadBGM("StageBGM",filepach);
+            sound.LoadBGM("EndingBGM", filepach);
             // この上にロジックを記述
         }
 

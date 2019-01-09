@@ -12,21 +12,20 @@ namespace Oikake.Actor
     /// <summary>
     /// キャラクター継承クラス
     /// </summary>
-    abstract　class Character
+    abstract class Character
     {
         public Vector2 position;
         protected string name;
         protected bool isDeadFlag;
+        public int Hp { get; set; }
         protected IGameMediator mediator;
         public bool IsGetOn { get; set; }
-        public Vector2 Position { get; set;}
-        public Vector2 RobotPosition { get; set;}
+        public Vector2 Position { get; set; }
+        public Vector2 RobotPosition { get; set; }
         public abstract void Hit(Character s);
         public bool Isk { get; set; }
-        protected enum State
-           
-          
 
+        protected enum State
         {
             Preparation,//準備
             Dying,
@@ -48,14 +47,14 @@ namespace Oikake.Actor
         /// コンストラクタ
         /// </summary>
         /// <param name="name">画像の名前</param>
-        public Character(string name,IGameMediator mediator)
+        public Character(string name, IGameMediator mediator)
         {
             this.name = name;
             position = Vector2.Zero;
             isDeadFlag = false;
             this.mediator = mediator;
         }
-        
+
         public abstract void Initialize();
 
         public abstract void Update(GameTime gameTime);
@@ -71,7 +70,7 @@ namespace Oikake.Actor
         }
         public bool IsCollision(Character other)
         {
-          
+
             if (GetRect().Intersects(other.GetRect()))
             {
                 return true;
@@ -102,4 +101,3 @@ namespace Oikake.Actor
 }
 
 
-     

@@ -25,7 +25,6 @@ namespace Oikake.Scene
         private MoveBlock moveBlock;
         private Text text;
         private Robot robot;
-
         private Dictionary<int, string> stageNum_to_CSV = new Dictionary<int, string>()
         {
             {0, "Content/csv/Bolck.csv"},
@@ -44,14 +43,32 @@ namespace Oikake.Scene
 
         public void Draw(Renderer renderer)
         {
-            renderer.Begin(CenterCamera);
-            renderer.DrawTexture("mario", Vector2.Zero);
-            map1.Draw(renderer);
-            characterManager.Draw(renderer);
+            int b = 150;
+            int a = 0;
+            //renderer.Begin(CenterCamera);
+        
+            //characterManager.Draw(renderer);
             
             renderer.End();
 
             renderer.Begin();
+            renderer.DrawTexture("mario", Vector2.Zero);
+            map1.Draw(renderer);
+            for (int i = 1; i <= player.Hp; i++)
+            {
+                renderer.DrawTexture("hart", new Vector2(a, 0));
+
+                a = a + b;
+            }
+            a = 0;
+            if(robot.Isk)
+            {
+                for (int i = 1; i <= robot.Hp;i++)
+                {
+                    renderer.DrawTexture("hart", new Vector2(a, 100));
+                    a = a + b;
+                }
+            }
             renderer.End();
         }
         public void Initialize()
@@ -61,7 +78,7 @@ namespace Oikake.Scene
             Device. Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
            
-            robot = new Robot(this, map1);
+            robot = new Robot(this, map1,5);
             characterManager = new CharacterManager();
             characterManager.Initialize();
            
@@ -92,7 +109,7 @@ namespace Oikake.Scene
             if (player.IsGoal() == true)
             {
                 IsEndFlag = true;
-                nextScene = Scene.Ending;
+                nextScene = Scene.GoodEnding;
             }
 
             if (characterManager.IsPlayerDead())
@@ -114,7 +131,7 @@ namespace Oikake.Scene
         public void Update(GameTime gameTime)
         {
             CameraDraw();
-            sound.PlayBGM("TitleSound");
+            sound.PlayBGM("StageBGM");
             characterManager.Update(gameTime);
             Next();
        
@@ -147,7 +164,7 @@ namespace Oikake.Scene
             float maxX = mapWidth - currentScreenWidth / 2.0f;
 
             if(robot.Isk==false)
-           CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
+             CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
             if(robot.Isk==true)
             {
                 CenterCamera = new Vector2(MathHelper.Clamp(robot.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));

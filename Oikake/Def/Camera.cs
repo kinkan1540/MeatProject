@@ -18,7 +18,7 @@ namespace Oikake.Def
         private Vector2 centre;
         private Viewport viewport;
 
-        private static float zoom = 2.3f;
+        private static float zoom =0.0f;
         private float roatation = 0;
         public float X
         {

@@ -17,7 +17,6 @@ namespace Oikake.Actor
     {
         Vector2 velocity = Vector2.Zero;
         private Sound sound;
-        private int hp;
         private Motion motion;
         private bool isJump;
         private float gravity = 0.5f;
@@ -27,6 +26,9 @@ namespace Oikake.Actor
         private List<Vector2> movePos;
         private Timer timer;
         Player player;
+        private Range range;
+        //敵の時のポジション移動速度
+        private float speed;
 
         //各ブロック調査用
         private List<Vector2> rightPos;
@@ -82,9 +84,10 @@ namespace Oikake.Actor
             }
         }
 
-        public Robot(IGameMediator mediator, Map1 map1)
+        public Robot(IGameMediator mediator, Map1 map1,float speed)
             : base("Robot", mediator)
         {
+            this.speed = speed;
             Device.Camera.GetScreenPos(position);
             this.map = map1;
             position = Vector2.Zero;
@@ -108,7 +111,7 @@ namespace Oikake.Actor
 
         public override void Initialize()
         {
-            hp = 4;
+            Hp= 4;
             timer = new CountDownTimer(0.3f);
             IsGoal();
             IsTrap();
@@ -116,9 +119,10 @@ namespace Oikake.Actor
             isJump = false;
             isDeadFlag = false;
             velocity = Vector2.Zero;
-            position = new Vector2(750f, 736);
+            position = new Vector2(350, 736);
             motion = new Motion();
             MotionInit();
+            range = new Range((int)position.X - 100, (int)position.X + 100);
         }
         public override void Update(GameTime gameTime)
         {
@@ -150,8 +154,8 @@ namespace Oikake.Actor
             //ロボットの当たり判定
             if(other is PlayerBullet)
             {
-                hp -= 1;
-                if (hp <= 0)
+               Hp -= 1;
+                if (Hp <= 0)
                 {
                     IsGetOn = true;
                 }
@@ -198,35 +202,45 @@ namespace Oikake.Actor
                     moveCount = 0;
                 }
             }
+
+            //移動処理
+            if(IsGetOn==false)
+            {
+                position.X += speed;
+                if (range.IsOutOFRange((int)position.X))
+                {
+                    speed *= -1;
+                }
+            }
         }
 
 
         private void MotionInit()
         {
             //下向き
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                motion.Add(i, new Rectangle(32 * (i % 3), 32 * (i / 3), 32, 32));
+                motion.Add(i, new Rectangle(32 * (i % 4), 32 * (i / 4), 32, 32));
             }
             //上向き
-            for (int i = 9; i < 12; i++)
-                motion.Add(i, new Rectangle(32 * (i % 3), 32 * (i / 3), 32, 32));
+            for (int i = 12; i < 16; i++)
+                motion.Add(i, new Rectangle(32 * (i % 4), 32 * (i / 4), 32, 32));
 
             //右向き
-            for (int i = 6; i < 9; i++)
+            for (int i = 8; i < 12; i++)
             {
-                motion.Add(i, new Rectangle(32 * (i % 3), 32 * (i / 3), 32, 32));
+                motion.Add(i, new Rectangle(32 * (i % 4), 32 * (i / 4), 32, 32));
             }
             //左向き
-            for (int i = 3; i < 6; i++)
+            for (int i = 4; i < 8; i++)
             {
-                motion.Add(i, new Rectangle(32 * (i % 3), 32 * (i / 3), 32, 32));
+                motion.Add(i, new Rectangle(32 * (i % 4), 32 * (i / 4), 32, 32));
             }
             direction = Direction.RIHT;
             directionRange = new Dictionary<Direction, Range>()
             {
-                {Direction.RIHT,new Range(6,8) },
-                {Direction.LEFT,new Range(3,5) }
+                {Direction.RIHT,new Range(8,11) },
+                {Direction.LEFT,new Range(3,7) }
             };
 
             motion.Initialize(directionRange[direction], new CountDownTimer(0.2f));
@@ -416,6 +430,7 @@ namespace Oikake.Actor
                 {
                     if (IsGetOn)
                     {
+                        Hp = 4;
                         IsGetOn = true;
                          Isk = true;
                         return true;
@@ -428,6 +443,16 @@ namespace Oikake.Actor
         public override Rectangle GetRect()
         {
             return base.GetRect();
+        }
+        
+
+        public bool IsRidOff()
+        {
+            if(Isk&&Input.PadGetkeyState(PlayerIndex.One,Buttons.B))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Oikake.Scene
             Device.Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
             player = new Player(this,map2);
-            robot = new Robot(this,map2);
+            robot = new Robot(this,map2,5);
             characterManager = new CharacterManager();
             characterManager.Initialize();
             characterManager.Add(new Player(this,map2));
