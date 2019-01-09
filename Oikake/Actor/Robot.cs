@@ -85,7 +85,7 @@ namespace Oikake.Actor
         }
 
         public Robot(IGameMediator mediator, Map1 map1,float speed)
-            : base("Robot", mediator)
+            : base("rbh", mediator)
         {
             this.speed = speed;
             Device.Camera.GetScreenPos(position);
@@ -94,10 +94,10 @@ namespace Oikake.Actor
             var gameDevice = GameDevice.Instance();
             sound = gameDevice.GetSound();
             //リストの生成
-            rightPos = new List<Vector2>() { new Vector2(27.5f, 0), new Vector2(27, 30) };
-            leftPos = new List<Vector2>() { new Vector2(-1f, 0), new Vector2(-1f, 30) };
-            upPos = new List<Vector2>() { new Vector2(0, -1), new Vector2(23, -1) };
-            downPos = new List<Vector2>() { new Vector2(7, 32), new Vector2(25, 32) };
+            rightPos = new List<Vector2>() { new Vector2(73, 0), new Vector2(73, 88) };
+            leftPos = new List<Vector2>() { new Vector2(-1f, 0), new Vector2(-1f, 88) };
+            upPos = new List<Vector2>() { new Vector2(0, -1), new Vector2(73, -1) };
+            downPos = new List<Vector2>() { new Vector2(73, 89), new Vector2(73, 89) };
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Oikake.Actor
             isJump = false;
             isDeadFlag = false;
             velocity = Vector2.Zero;
-            position = new Vector2(350, 736);
+            position = new Vector2(350, 670);
             motion = new Motion();
             MotionInit();
             range = new Range((int)position.X - 100, (int)position.X + 100);
@@ -220,7 +220,7 @@ namespace Oikake.Actor
             //下向き
             for (int i = 0; i < 4; i++)
             {
-                motion.Add(i, new Rectangle(32 * (i % 4), 32 * (i / 4), 32, 32));
+                motion.Add(i, new Rectangle(73 * (i % 4), 89 * (i / 4), 73, 80));
             }
             //上向き
             for (int i = 12; i < 16; i++)
@@ -234,13 +234,13 @@ namespace Oikake.Actor
             //左向き
             for (int i = 4; i < 8; i++)
             {
-                motion.Add(i, new Rectangle(32 * (i % 4), 32 * (i / 4), 32, 32));
+                motion.Add(i, new Rectangle(73 * (i % 4), 89 * (i / 4), 73, 80));
             }
             direction = Direction.RIHT;
             directionRange = new Dictionary<Direction, Range>()
             {
-                {Direction.RIHT,new Range(8,11) },
-                {Direction.LEFT,new Range(3,7) }
+                {Direction.RIHT,new Range(0,3) },
+                {Direction.LEFT,new Range(4,7) }
             };
 
             motion.Initialize(directionRange[direction], new CountDownTimer(0.2f));

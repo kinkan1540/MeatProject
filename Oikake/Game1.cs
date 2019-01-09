@@ -39,7 +39,7 @@ namespace Oikake
             graphicsDevice.PreferredBackBufferWidth = Screen.Width;
             graphicsDevice.PreferredBackBufferHeight = Screen.Height;
 
-           // graphicsDevice.IsFullScreen = true;
+           //graphicsDevice.IsFullScreen = true;
 
             Window.Title = "MeatProject";
         }
@@ -95,6 +95,7 @@ namespace Oikake
             renderer.LoadContent("Robot");
             renderer.LoadContent("white");
             renderer.LoadContent("hart");
+            renderer.LoadContent("rbh");
             //1ピクセル黒画像の生成
             Texture2D fade = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = new Color[1 * 1];

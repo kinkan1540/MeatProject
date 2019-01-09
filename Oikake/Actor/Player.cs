@@ -416,23 +416,26 @@ namespace Oikake.Actor
         /// </summary>
         private void BulletUpdate()
         {
-            if (Input.GetKeyTrigger(Keys.Z) || Input.IskeyPadDown(PlayerIndex.One, Buttons.RightShoulder))
+            if (mediator.GetRobot().Isk == false)
             {
-                if (bulletNum > 0)
+                if (Input.GetKeyTrigger(Keys.Z) || Input.IskeyPadDown(PlayerIndex.One, Buttons.RightShoulder))
                 {
-                    Vector2 velocity = new Vector2(1, 0);
-                    if (direction == Direction.LEFT)
-                    {
-                        velocity = new Vector2(-1, 0);
-                    }
                     if (bulletNum > 0)
                     {
-                        mediator.AddActor(
-                      new PlayerBullet(
-                          position,
-                          mediator,
-                          velocity));
-                        bulletNum--;
+                        Vector2 velocity = new Vector2(1, 0);
+                        if (direction == Direction.LEFT)
+                        {
+                            velocity = new Vector2(-1, 0);
+                        }
+                        if (bulletNum > 0)
+                        {
+                            mediator.AddActor(
+                          new PlayerBullet(
+                              position,
+                              mediator,
+                              velocity));
+                            bulletNum--;
+                        }
                     }
                 }
             }
