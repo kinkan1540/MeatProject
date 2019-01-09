@@ -36,7 +36,7 @@ namespace Oikake.Scene
             var gameDevice = GameDevice.Instance();
             sound = gameDevice.GetSound();
             IsEndFlag = false;
-            
+
             //マップ生成
             map1 = new Map1();
         }
@@ -45,15 +45,15 @@ namespace Oikake.Scene
         {
             int b = 150;
             int a = 0;
-            //renderer.Begin(CenterCamera);
-        
-            //characterManager.Draw(renderer);
-            
+            renderer.Begin(CenterCamera);
+            renderer.DrawTexture("mario", Vector2.Zero);
+            map1.Draw(renderer);
+            characterManager.Draw(renderer);
+
             renderer.End();
 
             renderer.Begin();
-            renderer.DrawTexture("mario", Vector2.Zero);
-            map1.Draw(renderer);
+          
             for (int i = 1; i <= player.Hp; i++)
             {
                 renderer.DrawTexture("hart", new Vector2(a, 0));
@@ -61,9 +61,9 @@ namespace Oikake.Scene
                 a = a + b;
             }
             a = 0;
-            if(robot.Isk)
+            if (robot.Isk)
             {
-                for (int i = 1; i <= robot.Hp;i++)
+                for (int i = 1; i <= robot.Hp; i++)
                 {
                     renderer.DrawTexture("hart", new Vector2(a, 100));
                     a = a + b;
@@ -73,22 +73,22 @@ namespace Oikake.Scene
         }
         public void Initialize()
         {
-            moveBlock = new MoveBlock(this, new Vector2(320,640),2.5f);
-            text = new Text("Hey",new Vector2(320,640));
-            Device. Camera.Initializa(Vector2.Zero);
+            moveBlock = new MoveBlock(this, new Vector2(320, 640), 2.5f);
+            text = new Text("Hey", new Vector2(320, 640));
+            Device.Camera.Initializa(Vector2.Zero);
             IsEndFlag = false;
-           
-            robot = new Robot(this, map1,5);
+
+            robot = new Robot(this, map1, 5);
             characterManager = new CharacterManager();
             characterManager.Initialize();
-           
+
             characterManager.Add(robot);
-            characterManager.Add(moveBlock); 
+            characterManager.Add(moveBlock);
             player = new Player(this, map1);
             characterManager.Add(player);
 
             bullets = new List<Bullet>();
-         
+
             map1.Initialize();
         }
 
@@ -119,7 +119,7 @@ namespace Oikake.Scene
                 nextScene = Scene.Ending;
             }
 
-          
+
             return nextScene;
         }
 
@@ -134,8 +134,8 @@ namespace Oikake.Scene
             sound.PlayBGM("StageBGM");
             characterManager.Update(gameTime);
             Next();
-       
-          
+
+
             //マップ更新
             map1.Update();
         }
@@ -145,7 +145,7 @@ namespace Oikake.Scene
             characterManager.Add(character);
         }
 
-       public void CameraDraw()
+        public void CameraDraw()
         {
             float mapHeightSize = 32.0f * 25.0f;
 
@@ -163,13 +163,13 @@ namespace Oikake.Scene
             float minX = currentScreenWidth / 2.0f;
             float maxX = mapWidth - currentScreenWidth / 2.0f;
 
-            if(robot.Isk==false)
-             CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
-            if(robot.Isk==true)
+            if (robot.Isk == false)
+                CenterCamera = new Vector2(MathHelper.Clamp(player.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
+            if (robot.Isk == true)
             {
                 CenterCamera = new Vector2(MathHelper.Clamp(robot.GetPosition().X, minX, maxX), MathHelper.Clamp(centerY, minY, maxY));
             }
-       }
+        }
 
         public bool IsBlock(Vector2 position)
         {
@@ -188,7 +188,7 @@ namespace Oikake.Scene
 
         public bool IsMapBlock(Vector2 position)
         {
-            if(map1.IsBloock(position))
+            if (map1.IsBloock(position))
             {
                 return true;
             }

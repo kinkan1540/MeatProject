@@ -39,7 +39,7 @@ namespace Oikake
             graphicsDevice.PreferredBackBufferWidth = Screen.Width;
             graphicsDevice.PreferredBackBufferHeight = Screen.Height;
 
-            graphicsDevice.IsFullScreen = true;
+           // graphicsDevice.IsFullScreen = true;
 
             Window.Title = "MeatProject";
         }
